@@ -49,6 +49,11 @@ jobs:
           # Artifact name
           name: drop
           path: drop
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: ${{ steps.download.outputs.download-path }}
+      - name: 'Echo download path'
+        run: echo ${{ steps.download.outputs.download-path }}
       - name: Upload S3
         # You may pin to the exact commit or the version.
         # uses: shallwefootball/upload-s3-action@bcd7c2408245fd6cd19b5512a473b1a7a8b48a35
@@ -61,4 +66,6 @@ jobs:
           # aws bucket name
           aws_bucket: sitedomanu
           # directory to upload
-          source_dir: '${{ steps.download.outputs.download-path }}'
+          source_dir: ${{ steps.download.outputs.download-path }}/
+          # destination directory for upload
+          destination_dir: /
