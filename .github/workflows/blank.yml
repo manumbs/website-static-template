@@ -66,6 +66,6 @@ jobs:
           # aws bucket name
           aws_bucket: sitedomanu
           # directory to upload
-          source_dir: ${{ steps.download.outputs.download-path }}/
+          source_dir: ${{ steps.download.outputs.download-path }}/drop
           # destination directory for upload
           destination_dir: /
