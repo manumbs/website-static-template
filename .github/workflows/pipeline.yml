@@ -62,7 +62,7 @@ jobs:
           # aws secret access key
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           # aws bucket name
-          aws_bucket: sitedomanu
+          aws_bucket: ${{ secrets.AWS_BUCKET }}
           # directory to upload
           source_dir: drop
           # destination directory for upload
