@@ -29,10 +29,11 @@ jobs:
         uses: actions/upload-artifact@v2.2.3
         with:
           # Artifact name
-          name: drop
+          name: drop-${{ env.name }}
           # A file, directory or wildcard pattern that describes what to upload
           path: src
           # The desired behavior if no files are found using the provided path.
+          if-no-files-found: error
   cd-dev:
     name: CD - DEV
     environment:
@@ -46,7 +47,13 @@ jobs:
         uses: actions/download-artifact@v2.0.9
         with:
           # Artifact name
-          name: drop
+          name: drop-${{ env.name }}
+          path: drop-${{ env.name }}
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: /
+      - name: 'Echo download path'
+        run: echo ${{ steps.download.outputs.download-path }}
       - name: Upload S3
         # You may pin to the exact commit or the version.
         # uses: shallwefootball/upload-s3-action@bcd7c2408245fd6cd19b5512a473b1a7a8b48a35
@@ -59,6 +66,6 @@ jobs:
           # aws bucket name
           aws_bucket: sitedomanu
           # directory to upload
-          source_dir: drop/src
+          source_dir: drop-${{ env.name }}/src
           # destination directory for upload
           destination_dir: /
